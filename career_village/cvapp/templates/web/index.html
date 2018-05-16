@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- SEARCH FIELD -->
+<form method="get">
+   {{ filter.form.as_p }}
+   <input type="text" >
+   <button type="submit">Search</button>
+ </form>
+ <ul>
+ {% for photo in filter.qs %}
+   <li>{{ photo.name }}</li>
+ {% endfor %}
+ </ul>
+
+
+<!-- PHOTO LIST -->
+<div class="container">
+  <div class="row" style="margin-top: 10px">
+  {% for photo in photos %}
+    <div class="col-sm-4 col-md-3">
+      <img src="{{ photo.file.url }}" width="80%" class="thumbnail">
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+
+<table id="gallery" class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Photo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for photo in photos %}
+      <tr>
+        <td><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

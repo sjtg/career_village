@@ -1,0 +1,82 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'photo_list' %}">Photo Sharing</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-menu">
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="https://chipileconsultant.com">Images</a></li>
+        <li><a href="https://chipileconsultant.com">Footage</a></li>
+        <li><a href="https://chipileconsultant.com">Music</a></li>
+        <li><a href="https://chipileconsultant.com">Editorial</a></li>
+        <li><a href="https://chipileconsultant.com">Blog</a></li>
+        <li><a href="https://chipileconsultant.com">Tools</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://chipileconsultant.com">Contribute</a></li>
+        <li class="dropdown">
+       <a class="dropdown-toggle" data-toggle="dropdown" href="#">Accounts
+       <span class="caret"></span></a>
+
+       <ul class="dropdown-menu">
+
+
+         {% if request.user.is_authenticated %}
+
+           <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               {{ user.username }}
+             </a>
+             <a class="dropdown-item" href="#">My account</a>
+             <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
+             <div class="dropdown-divider"></div>
+             <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+           </li>
+           {% else %}
+           <li><a href="{% url 'login' %}">Login</a></li>
+           <li><a href="{% url 'signup' %}">Sign Up</a></li>
+
+           {% endif %}
+
+         </li>
+       </ul>
+
+       <!--
+
+       {% if user.is_authenticated %}
+               <ul class="navbar-nav ml-auto">
+                 <li class="nav-item dropdown">
+                   <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     {{ user.username }}
+                   </a>
+                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                     <a class="dropdown-item" href="#">My account</a>
+                     <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
+                     <div class="dropdown-divider"></div>
+                     <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                   </div>
+                 </li>
+               </ul>
+             {% else %}
+               <form class="form-inline ml-auto">
+                 <a href="{% url 'login' %}" class="btn btn-outline-secondary">Log in</a>
+                 <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Sign up</a>
+               </form>
+       {% endif %}
+
+
+       -->
+     </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>

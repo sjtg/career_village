@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block javascript %}
+
+<script src="{% static 'js/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'js/jquery.fileupload.js' %}"></script>
+
+<script>
+
+$(function () {
+
+$(".js-upload-photos").click(function () {
+  $("#fileupload").click();
+});
+
+$("#fileupload").fileupload({
+  dataType: 'json',
+  sequentialUploads: true,
+
+  start: function (e) {
+    $("#modal-progress").modal("show");
+  },
+
+  stop: function (e) {
+    $("#modal-progress").modal("hide");
+  },
+
+  progressall: function (e, data) {
+    var progress = parseInt(data.loaded / data.total * 100, 10);
+    var strProgress = progress + "%";
+    $(".progress-bar").css({"width": strProgress});
+    $(".progress-bar").text(strProgress);
+  },
+
+  done: function (e, data) {
+    if (data.result.is_valid) {
+      $("#gallery tbody").prepend(
+        "<tr><td><a href='" + data.result.url + "'>" + data.result.name + "</a></td></tr>"
+      )
+    }
+  }
+
+});
+
+});
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+<!-- CLEAR THE DATABASE -->
+<form method="post" action="{% url 'clear_database' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <button type="submit" class="btn btn-danger pull-right">
+      <span class="glyphicon glyphicon-trash"></span> Clear Database
+    </button>
+  </form>
+
+
+  <form method="get">
+     {{ filter.form.as_p }}
+     <input type="text" >
+     <button type="submit">Search</button>
+   </form>
+   <ul>
+   {% for photo in filter.qs %}
+     <li>{{ photo.file.name }}</li>
+   {% endfor %}
+   </ul>
+
+
+
+<!-- UPLOAD FUNCTION -->
+<div style="margin-bottom: 20px;">
+    <button type="button" class="btn btn-primary js-upload-photos">
+      <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
+    </button>
+    <input id="fileupload" type="file" name="file" multiple
+           style="display: none;"
+           data-url="{% url 'dashboard' %}"
+           data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+  </div>
+
+  <table id="gallery" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Photo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for photo in photos %}
+        <tr>
+          <td><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Uploading...</h4>
+        </div>
+        <div class="modal-body">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
