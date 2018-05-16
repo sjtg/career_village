@@ -5,15 +5,15 @@ from django.http import JsonResponse
 from .models import Photo
 from .forms import PhotoForm
 from django.utils import timezone
-from .filters import PhotoFilter
+
 
 #from .models import Post
 # Create your views here.
 
 #Home page Career Village
 def home(request):
-	photos_lists = Photo.objects.all()
-    return render(request, 'web/photo_list.html', {'photos': photos_lists})
+	jobs_lists = Photo.objects.all()
+	return render(request, 'web/index.html', {'photos': jobs_lists})
 
 
 
@@ -21,8 +21,8 @@ def home(request):
 #upload and crop function
 class dashboardView(View):
     def get(self, request):
-	        photos_lists = Photo.objects.all()
-	        return render(self.request, 'web/dashboard.html', {'photos': photos_lists})
+	        jobs_lists = Photo.objects.all()
+	        return render(self.request, 'web/dashboard.html', {'photos': jobs_lists})
 
     def post(self, request):
         #time.sleep(1)
