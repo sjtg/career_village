@@ -28,9 +28,14 @@ from accounts import views as accounts_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^settings/account/$', accounts_views.UserUpdateView.as_view(), name='my_account'),
     url(r'^$', views.home, name='home'),
+    url(r'^topics/(?P<pk>\d+)/$', views.topics, name='topics'),
+    url(r'^topics/(?P<pk>\d+)/new/$', views.new_topics, name='new_topics'),
+    url(r'^signup/$', accounts_views.signup, name='signup'),
+    #url(r'^jobs/(?P<pk>\d+)/$', views.jobs, name='jobs'),
+    #url(r'^jobs/(?P<pk>\d+)/new/$', views.jobs_topics, name='new_jobs'),
     url(r'^dashboard/$', views.dashboardView.as_view(), name='dashboard'),
-    url(r'^signup/$', accounts_views.signup, name='signup' ),
     url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^reset/$',

@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'cvapp',
     'accounts',
     'widget_tweaks',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +133,7 @@ STATICFILES_DIRS  = [os.path.join(BASE_DIR, 'static'),]
 
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_REDIRECT_URL = 'home'
 
 
 MEDIA_URL = '/media/'

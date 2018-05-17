@@ -17,6 +17,10 @@
   <body>
     {% include 'includes/header.html' %}
     <div class="container">
+      <ol class="breadcrumb my-4">
+      	{% block breadcrumb %}
+      	{% endblock %}
+	     </ol>
       {% block content %}
       {% endblock %}
     </div>

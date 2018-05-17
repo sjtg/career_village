@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load humanize %}
+
 {% block content %}
 
 <!-- SEARCH FIELD -->
@@ -17,17 +19,44 @@
  </ul>
 
 
-<!-- PHOTO LIST -->
-<div class="container">
-  <div class="row" style="margin-top: 10px">
-  {% for photo in photos %}
-    <div class="col-sm-4 col-md-3">
-      <img src="{{ photo.file.url }}" width="80%" class="thumbnail">
-    </div>
-  {% endfor %}
-  </div>
-</div>
-
+<!-- LIST OF JOBS -->
+<table  id="gallery" class="table table-bordered">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Board</th>
+            <th>Posts</th>
+            <th>Jobs</th>
+            <th>Last Post</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for board in boards %}
+            <tr>
+              <td>
+               <a href ="{% url 'topics' board.pk %}"> {{ board.name }}</a>
+                <small class="text-muted d-block">{{ board.title }}</small>
+              </td>
+              <td class="align-middle">{{ board.get_posts_count  }}</td>
+              <td class="align-middle">{{ board.topics.count  }}</td>
+	      <td class="align-middle">
+	      	{% with post=board.get_last_post %}
+			{% if post %}
+			<small>
+				<a href="{% url 'topic_posts' board.pk post.topic.pk %}">
+					By {{ post.created_by.username  }} at {{ post.created_at | naturaltime }}
+				</a>
+			</small>
+			{% else %}
+			<small class="text-muted">
+				<em>No posts yet</em>
+			</small>
+			{% endif  %}
+		{% endwith  %}
+	      </td>
+	      </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 
 <table id="gallery" class="table table-bordered">
   <thead>

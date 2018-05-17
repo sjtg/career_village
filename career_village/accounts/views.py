@@ -5,6 +5,11 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
 
+from django.urls import reverse_lazy
+
+from django.utils.decorators import method_decorator
+
+from django.views.generic import UpdateView
 
 from django.contrib.auth import login as auth_login
 
@@ -12,20 +17,16 @@ from django.shortcuts import render, redirect
 
 from .forms import SignUpForm
 
-from django.urls import reverse_lazy
+# Create your views here.
 
-from django.utils.decorators import method_decorator
-
-from django.views.generic import UpdateView
-
-
+#signup function allows the users to create an account
 def signup(request):
 	if request.method == 'POST':
 		form = SignUpForm(request.POST)
 		if form.is_valid():
 			user = form.save()
 			auth_login(request, user)
-			return redirect('dashboard')
+			return redirect('home')
 	else:
 		form = SignUpForm()
 	return render(request, 'signup.html', {'form' : form})
