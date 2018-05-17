@@ -22,9 +22,8 @@ from django.db.models import Count
 #Home page Career Village
 def home(request):
 	jobs_lists = Photo.objects.all()
-	return render(request, 'web/index.html', {'photos': jobs_lists})
-
-
+	boards = Job_Boards.objects.all()
+	return render(request, 'web/index.html', {'photos': jobs_lists, 'boards': boards})
 
 
 #upload and crop function
@@ -46,7 +45,7 @@ class dashboardView(View):
 		return JsonResponse(data)
 
 
-#created 
+#created
 
 #created topics function to list the topics within the board
 def topics(request, pk):
