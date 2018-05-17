@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect,  get_object_or_404
-#from django.contrib.auth.models import User
 from django.views import View
 from django.http import JsonResponse
 from .models import Photo
@@ -14,9 +13,6 @@ from .forms import NewTopicForm, PostForm
 from .models import Job_Boards, Job_Topic, Post
 
 from django.db.models import Count
-
-
-#from .models import Post
 # Create your views here.
 
 #Home page Career Village
@@ -81,7 +77,7 @@ def new_topics(request, pk):
 
 
 def topic_posts(request, pk, topic_pk):
-	topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
+	topic = get_object_or_404(Job_Topic, board__pk=pk, pk=topic_pk)
 	topic.views += 1
 	topic.save()
 	return render(request, 'web/topic_posts.html', {'topic' : topic})
@@ -89,7 +85,7 @@ def topic_posts(request, pk, topic_pk):
 
 @login_required
 def reply_topic(request, pk, topic_pk):
-	topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)
+	topic = get_object_or_404(Job_Topic, board__pk=pk, pk=topic_pk)
 	if request.method == 'POST':
 		form = PostForm(request.POST)
 		if form.is_valid():
@@ -109,4 +105,4 @@ def search(request):
 	user_filter = UserFilter(request.GET, queryset=user_list)
 	jobs_lists = Job_Topic.objects.all()
 	jobs_filter = JobFilter(request.GET, queryset=jobs_lists)
-	return render(request, 'web/user_list.html', {'filter': user_filter, 'filter': jobs_filter})
+	return render(request, 'web/index.html', {'filter': user_filter, 'filter' : jobs_filter})
