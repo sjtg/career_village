@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^topics/(?P<pk>\d+)/new/$', views.new_topics, name='new_topics'),
     url(r'^topics/(?P<pk>\d+)/subtopic/(?P<topic_pk>\d+)/$', views.topic_posts, name='topic_posts'),
     url(r'^topics/(?P<pk>\d+)/subtopic/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
+    url(r'^search/$', views.search, name='search'),
     url(r'^signup/$', accounts_views.signup, name='signup'),
     #url(r'^jobs/(?P<pk>\d+)/$', views.jobs, name='jobs'),
     #url(r'^jobs/(?P<pk>\d+)/new/$', views.jobs_topics, name='new_jobs'),

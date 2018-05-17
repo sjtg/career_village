@@ -9,7 +9,7 @@ class UserFilter(django_filters.FilterSet):
 		model = User
 		fields = ['username',   ]
 
-class JobFilter(django_filters.FilterSet):
-    class Meta:
-        model = Job_Topic
-        fields = ['title', ]
+# class JobFilter(django_filters.FilterSet):
+#     class Meta:
+#         model = Job_Topic
+#         fields = ['title', ]

@@ -13,6 +13,8 @@ from .forms import NewTopicForm, PostForm
 from .models import Job_Boards, Job_Topic, Post
 
 from django.db.models import Count
+
+from .filters import UserFilter
 # Create your views here.
 
 #Home page Career Village
