@@ -1,20 +1,15 @@
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect,  get_object_or_404
+from .forms import NewTopicForm, PostForm, PhotoForm
+from .models import Job_Boards, Job_Topic, Post, Photo
+from django.db.models import Count
+from .filters import UserFilter
 from django.views import View
 from django.http import JsonResponse
-from .models import Photo
-from .forms import PhotoForm
 from django.utils import timezone
-from django.contrib.auth.models import User
 
-from django.contrib.auth.decorators import login_required
 
-from .forms import NewTopicForm, PostForm
-
-from .models import Job_Boards, Job_Topic, Post
-
-from django.db.models import Count
-
-from .filters import UserFilter
 # Create your views here.
 
 #Home page Career Village
@@ -105,6 +100,6 @@ def reply_topic(request, pk, topic_pk):
 def search(request):
 	user_list = User.objects.all()
 	user_filter = UserFilter(request.GET, queryset=user_list)
-	jobs_lists = Job_Topic.objects.all()
-	jobs_filter = JobFilter(request.GET, queryset=jobs_lists)
-	return render(request, 'web/index.html', {'filter': user_filter, 'filter' : jobs_filter})
+	# jobs_lists = Job_Topic.objects.all()
+	# jobs_filter = JobFilter(request.GET, queryset=jobs_lists)
+	return render(request, 'web/user_list.html', {'filter': user_filter})

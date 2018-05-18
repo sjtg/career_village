@@ -17,19 +17,15 @@
   <body>
     {% include 'includes/header.html' %}
     <div class="container">
-      <ol class="breadcrumb my-4">
+      <!-- <ol class="breadcrumb my-4">
       	{% block breadcrumb %}
       	{% endblock %}
-	     </ol>
+	     </ol> -->
       {% block content %}
       {% endblock %}
     </div>
     <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
-
-
-
 
     {% block javascript %}
     {% endblock %}

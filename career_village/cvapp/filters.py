@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import  Job_Boards
+# from .models import  Job_Boards
 import django_filters
 
 
