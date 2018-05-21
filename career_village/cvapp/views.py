@@ -16,7 +16,10 @@ from django.utils import timezone
 def home(request):
 	jobs_lists = Photo.objects.all()
 	boards = Job_Boards.objects.all()
-	return render(request, 'web/index.html', {'photos': jobs_lists, 'boards': boards})
+	user_list = User.objects.all()
+	user_filter = UserFilter(request.GET, queryset=user_list)
+	return render(request, 'web/index.html', {'photos': jobs_lists, 'boards': boards, 'filter': user_filter})
+
 
 
 #upload and crop function
